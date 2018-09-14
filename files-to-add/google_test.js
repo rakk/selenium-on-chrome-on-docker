@@ -5,29 +5,32 @@ var webdriver = require('selenium-webdriver'),
 //var chrome    = require('selenium-webdriver/chrome');
 //var options   = new chrome.Options().headless();
 
+var chromeCapabilities = webdriver.Capabilities.chrome();
+//setting chrome options to start the browser fully maximized
+var chromeOptions = {
+    'args': ['disable-gpu', 'headless', 'no-sandbox']
+};
+chromeCapabilities.set('chromeOptions', chromeOptions);
+
 var driver = new webdriver.Builder()
     .forBrowser('chrome')
     // .setChromeOptions(options)
     .usingServer('http://localhost:4444/wd/hub')
+    .withCapabilities(chromeCapabilities)
     .build();
 
-console.log("Open www.google.com");
 
-driver.get('http://www.google.com');
+console.log("Open page:");
 
-driver.findElement(By.name('q')).sendKeys('webdriver');
-
-driver.sleep(1000).then(function() {
-  driver.findElement(By.name('q')).sendKeys(webdriver.Key.TAB);
-});
-
-driver.findElement(By.name('btnK')).click();
+driver.get('https://www.apple.com/iphone/');
 
 driver.sleep(2000).then(function() {
   driver.getTitle().then(function(title) {
-    if(title === 'webdriver - Google Search') {
+    var expectedTitle = "iPhone - Apple";
+    if(title === expectedTitle) {
       console.log('Test passed');
     } else {
+      console.log("Expected title: " + expectedTitle + " but was " + title);
       console.log('Test failed');
     }
     driver.quit();

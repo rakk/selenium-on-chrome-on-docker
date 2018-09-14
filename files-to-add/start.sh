@@ -2,23 +2,29 @@
 
 run_selenium_server() {
   echo "Running seleniun server in background..."
-  java -Dwebdriver.chrome.driver=/opt/chromedriver -jar /opt/selenium-server-standalone-3.14.0.jar -role hub -port 4444 &
+  echo "=============================="
+  java -Dwebdriver.chrome.driver=/opt/chromedriver -jar /opt/selenium-server-standalone-2.41.0.jar -role hub -port 4444 &
 
-  delay="7s"
+  delay="5s"
   echo "Sleep for ${delay}"
   sleep ${delay}
+  echo "=============================="
   echo "Let's run test"
+
 }
 
 run_selenium_server_node() {
   echo "Running seleniun NODE server in background..."
-  java -Dwebdriver.chrome.driver=/opt/chromedriver -jar /opt/selenium-server-standalone-3.14.0.jar -role node -port 5555 -browser "browserName=chrome,chrome_binary=/usr/bin/google-chrome-stable --disable-gpu --headless --no-sandbox" &
+  echo "=============================="
+  java -Dwebdriver.chrome.driver=/opt/chromedriver -jar /opt/selenium-server-standalone-2.41.0.jar -role node -port 5555 -browser "browserName=chrome,chrome_binary=/usr/bin/google-chrome-stable" &
 
-  delay="7s"
+  delay="5s"
   echo "Sleep for ${delay}"
   sleep ${delay}
+  echo "=============================="
   echo "Let's run test"
 
+  echo "=============================="
 }
 
 run_selenium_server

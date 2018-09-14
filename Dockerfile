@@ -20,12 +20,12 @@ RUN yum install -y java-1.8.0-openjdk-devel
 RUN curl -sL https://rpm.nodesource.com/setup_8.x | bash -
 RUN yum -y install nodejs
 
-RUN npm install selenium-webdriver
+RUN cd /opt && npm install selenium-webdriver && npm install chromedriver
 
 COPY /files-to-add /opt
 
 RUN chmod 777 /opt/start.sh \
-    && chmod 777 /opt/selenium-server-standalone-3.14.0.jar \
+    && chmod 777 /opt/selenium-server-standalone-2.41.0.jar \
     && chmod 777 /opt/chromedriver
 
 CMD [ "/opt/start.sh" ]
